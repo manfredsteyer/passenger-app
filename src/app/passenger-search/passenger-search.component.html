@@ -1,0 +1,40 @@
+
+<div class="form-group">
+    <label>Name</label>
+    <input [(ngModel)]="name" class="form-control">
+</div>
+
+<div class="form-group">
+    <label>First Name</label>
+    <input [(ngModel)]="firstName" class="form-control">
+</div>
+
+<div class="form-group">
+    <button 
+        class="btn btn-default" 
+        (click)="search()">
+        Search
+    </button>
+</div>
+
+<!--
+    [ngClass]="{ 'active': f == selectedFlight }"
+-->
+<table class="table table-striped">
+    <tr *ngFor="let p of passengers" [ngStyle]="{ 'background-color': (p == selectedPassenger) ? 'orange' : '' }">
+        <td>{{p.id}}</td>
+        <td>{{p.firstName}}</td>
+        <td>{{p.name}}</td>
+        <td>{{p.passengerStatus}}</td>
+        <td>{{p.bonusMiles}}</td>
+        <td>
+            <a (click)="select(p)">Auswählen</a>
+        </td>
+    </tr>
+</table>
+
+<pre>Warenkorb
+-----------------
+{{ selectedFlight | json }}    
+</pre>    
+
