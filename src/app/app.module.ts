@@ -13,7 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   declarations: [
-    AppComponent, PassengerSearchComponent
+    AppComponent, 
+    PassengerSearchComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

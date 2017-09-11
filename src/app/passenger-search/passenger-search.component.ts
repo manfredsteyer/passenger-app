@@ -1,10 +1,12 @@
+import { PassengerService } from './passenger.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component } from "@angular/core";
 import { Passenger } from "../entities/passenger";
 
 @Component({
     selector: 'passenger-search',
-    templateUrl: './passenger-search.component.html'
+    templateUrl: './passenger-search.component.html',
+    providers: [PassengerService]
 })
 export class PassengerSearchComponent {
 
@@ -15,26 +17,17 @@ export class PassengerSearchComponent {
 
     message: string;
 
-    constructor(private http: HttpClient) {
+    constructor(private passengerService: PassengerService) {
     }
 
     search(): void {
 
-        let url = 'http://www.angular.at/api/passenger';
-
-        let headers = new HttpHeaders()
-                            .set('Accept', 'application/json');
-
-        let params = new HttpParams()
-                            .set('name', this.name)
-                            .set('firstName', this.firstName)
-
-
-        this.http
-            .get<Passenger[]>(url, { headers, params})
+        this
+            .passengerService
+            .find(this.name, this.firstName)
             .subscribe(
                 passengers => { this.passengers = passengers; },
-                errResponse => { console.error('Fehler beim Laden', errResponse); }
+                errResponse => { console.error('Error Loading', errResponse); }
             );
 
     }
@@ -43,15 +36,12 @@ export class PassengerSearchComponent {
         this.selectedPassenger = p;
     }
 
+    // Nur, falls Bonus-Aufgabe bez. Editieren gemacht wurde
     save(): void {
 
-        let url = 'http://www.angular.at/api/passenger';
-
-        let headers = new HttpHeaders()
-                            .set('Accept', 'application/json');
-
-        this.http
-            .post<Passenger>(url, this.selectedPassenger, { headers })
+        this
+            .passengerService
+            .save(this.selectedPassenger)
             .subscribe(
                 passenger => { 
                     this.selectedPassenger = passenger; 
@@ -67,6 +57,5 @@ export class PassengerSearchComponent {
             );
 
     }
-
 
 }
