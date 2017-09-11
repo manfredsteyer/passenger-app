@@ -17,9 +17,6 @@
     </button>
 </div>
 
-<!--
-    [ngClass]="{ 'active': f == selectedFlight }"
--->
 <table class="table table-striped">
     <tr *ngFor="let p of passengers" [ngStyle]="{ 'background-color': (p == selectedPassenger) ? 'orange' : '' }">
         <td>{{p.id}}</td>
@@ -32,6 +29,38 @@
         </td>
     </tr>
 </table>
+
+<div *ngIf="selectedPassenger">
+    
+    <div>
+        {{ message }}
+    </div>
+
+    <div class="form-group">
+        <label>Id</label>
+        <input [(ngModel)]="selectedPassenger.id" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Name</label>
+        <input [(ngModel)]="selectedPassenger.name" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Passenger Status</label>
+        <input [(ngModel)]="selectedPassenger.passengerStatus" class="form-control">
+    </div>
+    
+    <div class="form-group">
+        <label>Bonus Miles</label>
+        <input [(ngModel)]="selectedPassenger.bonusMiles" class="form-control">
+    </div>
+    
+    <div class="form-group">
+        <button class="btn btn-default" (click)="save()">Save</button>
+    </div>
+
+</div>
 
 <pre>Warenkorb
 -----------------
